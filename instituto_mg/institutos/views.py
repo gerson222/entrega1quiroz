@@ -37,14 +37,21 @@ def leer_cursos(request):
     contexto = {"cursos": cursos}
     return render (request, "institutos/leer_cursos.html", contexto)
 
-def crear_curso (request):   # DEBERIA ACA UNIRLO CON EL FORMULARIO, PERO NOSE SI INCLUIRLO PORQUE ME PARECE QUE UDS YA LO HICIERON
+def crear_curso (request):  
     if request.method == "POST":
-        curso = Curso (request.POST ["curso"], request.POST ["camada"])
-        curso.save ()
-        return render (request, "institutos/index.html")
-    
-    
-    return render (request, "institutos/crear_curso.html")
+        miFormulario = CursoFormulario (request.POST)
+        print (miFormulario)
+        
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            curso = Curso (request.POST ["curso"], request.POST ["camada"] )
+            curso.save()
+            return render (request, "institutos/index.html")
+
+    else:     
+        miFormulario= CursoFormulario() 
+        
+    return render (request, "institutos/crear_curso.html", {"miFormulario": miFormulario})
 
 def buscar_curso (request):
     return render (request, "institutos/buscar_curso.html")
