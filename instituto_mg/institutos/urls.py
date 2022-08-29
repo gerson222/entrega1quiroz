@@ -17,4 +17,5 @@ urlpatterns = [
     # path("curso_formulario/", curso_formulario, name='curso_formulario'),
     path("buscar_curso/", buscar_curso, name='buscar_curso'),
     path ("buscar/", buscar, name='buscar'),
+    path("borrar_curso/", borrar_curso, name='borrar_curso')
 ]

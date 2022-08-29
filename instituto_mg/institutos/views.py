@@ -67,7 +67,14 @@ def buscar (request):
     
     return HttpResponse(respuesta)
         
-    #respuesta = f"Estoy buscando el curso:  {request.GET['curso'] }"
+def borrar_curso (request, curso_nombre):
+    curso = Curso.objects.get (nombre = curso_nombre)
+    curso.delete ()
+    
+    curso = Curso.objects.all()
+    contexto = {"curso": curso}
+    
+    return render (request, "institutos/leer_cursos.html", contexto)
 
 
 def campus(request):
