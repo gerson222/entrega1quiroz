@@ -34,7 +34,7 @@ def registrar_usuario (request):
         if formulario.is_valid():
             formulario.save()
             
-    return redirect ("inicio")
+    return redirect (request, "inicio", {"mensaje": "USUARIO CREADO "})
 
 
 def deslogueo (request):
