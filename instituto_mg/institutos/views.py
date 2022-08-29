@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from institutos.forms import CursoFormulario
 from institutos.models import Curso, Profesor, Estudiante, Entregable
 from django.template import loader
 from datetime import datetime
@@ -15,9 +16,52 @@ def comentarios(request):
 
     return render(request, "institutos/comentarios.html")
 
-def cursos(request):
+def cursos (request):
+    if request.method == "POST":
+        miFormulario = CursoFormulario (request.POST)
+        print (miFormulario)
+        
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            curso = Curso (request.POST ["curso"], request.POST ["camada"] )
+            curso.save()
+            return render (request, "institutos/index.html")
 
-    return render(request, "institutos/cursos.html")
+    else:     
+        miFormulario= CursoFormulario() 
+        
+    return render (request, "institutos/curso_formulario.html", {"miFormulario": miFormulario})
+
+def leer_cursos(request):
+    cursos = Curso.objects.all()
+    contexto = {"cursos": cursos}
+    return render (request, "institutos/leer_cursos.html", contexto)
+
+def crear_curso (request):   # DEBERIA ACA UNIRLO CON EL FORMULARIO, PERO NOSE SI INCLUIRLO PORQUE ME PARECE QUE UDS YA LO HICIERON
+    if request.method == "POST":
+        curso = Curso (request.POST ["curso"], request.POST ["camada"])
+        curso.save ()
+        return render (request, "institutos/index.html")
+    
+    
+    return render (request, "institutos/crear_curso.html")
+
+def buscar_curso (request):
+    return render (request, "institutos/buscar_curso.html")
+
+def buscar (request):
+    if request.GET["curso"]:
+        curso = request.GET ["curso"]
+        curso = Curso.objects.filter(curso__icontains=curso)
+        return render (request, "institutos/resultado_busqueda.html", {"curso":curso})
+    
+    else:
+        respuesta = "No enviaste datos"
+    
+    return HttpResponse(respuesta)
+        
+    #respuesta = f"Estoy buscando el curso:  {request.GET['curso'] }"
+
 
 def campus(request):
 
@@ -43,20 +87,6 @@ def login(request):
 
     return render(request, "institutos/iniciar_sesion.html")
 
-def leer_cursos(request):
-    cursos = Curso.objects.all()
-    contexto = {"cursos": cursos}
-    return render (request, "institutos/leer_cursos.html", contexto)
-
-
-def crear_curso (request):   # DEBERIA ACA UNIRLO CON EL FORMULARIO, PERO NOSE SI INCLUIRLO PORQUE ME PARECE QUE UDS YA LO HICIERON
-    if request.method == "POST":
-        curso = Curso (request.POST ["curso"], request.POST ["camada"])
-        curso.save ()
-        return render (request, "institutos/index.html")
-    
-    
-    return render (request, "institutos/crear_curso.html")
 
 
 @login_required
