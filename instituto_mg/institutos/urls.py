@@ -12,4 +12,6 @@ urlpatterns = [
     path("campus/", campus, name='mis cursos'),
     path("login/", login, name='login'),
     path("cursos/", cursos, name='info cursos'),
+    path("leer_cursos/", leer_cursos, name='leer_cursos'),
+    path("crear_curso/", crear_curso, name='crear_curso')
 ]
