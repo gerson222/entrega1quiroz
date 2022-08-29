@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 def iniciar_sesion (request):
@@ -34,4 +34,11 @@ def registrar_usuario (request):
         if formulario.is_valid():
             formulario.save()
             
+    return redirect ("inicio")
+
+
+def deslogueo (request):
+    
+    
+    logout(request)
     return redirect ("inicio")
