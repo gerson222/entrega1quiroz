@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 def iniciar_sesion (request):
     if request.method == "GET":
         formulario = AuthenticationForm()
-        return render (request, "institutos/index.html", {"formulario": formulario})
+        return render (request, "seguridad/inicio_sesion.html", {"formulario": formulario})
     else:
         formulario = AuthenticationForm (request, data=request.POST)
         

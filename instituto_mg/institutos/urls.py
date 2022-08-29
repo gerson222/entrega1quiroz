@@ -1,6 +1,7 @@
 from django.urls import path
 from institutos.views import *
 
+
 urlpatterns = [
     path("", inicio, name='inicio'),
     path("comentarios/", comentarios, name='comentarios'),
