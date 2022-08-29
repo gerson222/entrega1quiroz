@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from institutos.models import Curso, Profesor, Estudiante, Entregable
 from django.template import loader
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -56,3 +57,10 @@ def crear_curso (request):   # DEBERIA ACA UNIRLO CON EL FORMULARIO, PERO NOSE S
     
     
     return render (request, "institutos/crear_curso.html")
+
+
+@login_required
+def editar_usuario (request):
+    
+    if request.method== "GET":
+        return render (request, "institutos/editar_usuario.html", {"formulario":None})

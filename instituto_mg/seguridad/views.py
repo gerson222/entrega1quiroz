@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 # Create your views here.
+
 
 def iniciar_sesion (request):
     if request.method == "GET":
@@ -21,8 +25,6 @@ def iniciar_sesion (request):
             
         return HttpResponse ("Formulario no valido") # Sino se puede renderizar el login pero mepa que la view de eso todavia no esta hecha.
     # en afterclass del 12/8 a los 36 min muestra formulario de errores
-    
-    
 def registrar_usuario (request):
     if request.method == "GET":
         formulario = UserCreationForm()  
@@ -36,9 +38,8 @@ def registrar_usuario (request):
             
     return redirect (request, "inicio", {"mensaje": "USUARIO CREADO "})
 
-
 def deslogueo (request):
-    
     
     logout(request)
     return redirect ("inicio")
+
