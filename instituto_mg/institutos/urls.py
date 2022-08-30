@@ -11,7 +11,7 @@ urlpatterns = [
     path("perfil/", usuario, name='perfil'),
     path("campus/", campus, name='mis cursos'),
     path("login/", login, name='login'),
-    path("cursos/", cursos, name='info cursos'),
+    path("cursos/", cursos, name='info_cursos'),
     path("leer_cursos/", leer_cursos, name='leer_cursos'),
     path("crear_cursos/", crear_cursos, name='crear_cursos'),
     # path("curso_formulario/", curso_formulario, name='curso_formulario'),
@@ -19,4 +19,7 @@ urlpatterns = [
     path ("buscar/", buscar, name='buscar'),
     path ("borrar_curso/<id_curso>", borrar_curso, name='borrar_curso'),
     path ("actualizar_curso/<id_curso>", actualizar_curso, name= "actualizar_curso"),
+    path ("profesores/", ProfesorLista.as_view(), name="profesores"),
+    path ("agregar_profesor/", agregar_profesor, name="agregar_profesor"),
+    path ("actualizar_profesor/", actualizar_profesor, name="actualizar_profesor"),
 ]

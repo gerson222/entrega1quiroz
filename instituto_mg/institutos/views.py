@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from typing import List
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from institutos.forms import CursoFormulario
+from institutos.forms import ProfesorFormulario, CursoFormulario
 from institutos.models import Curso, Profesor, Estudiante, Entregable
 from django.template import loader
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
 
 # Create your views here.
 
@@ -65,7 +67,7 @@ def borrar_curso (request, id_curso) :
     try:
         
         curso = Curso.objects.get (id = id_curso)
-        print (curso)
+        curso.delete()
         
         return HttpResponse(f"Estas a punto de borrar el curso: {curso}")
     
@@ -125,19 +127,8 @@ def actualizar_curso (request, id_curso):
             except:
                 return HttpResponse ("Error en la actualizacion")
             
-        
-        formulario = CursoFormulario()
-        cursos = Curso.objects.all ()
-        contexto = {
-            "mensaje": "Bienvenidos!",
-            "cursos": cursos,
-            "formulario": formulario 
-        }
-        
-        return render (request, "institutos/cursos.html", contexto )
+        return redirect("info_cursos")
                 
-            
-
 def campus(request):
 
     return render(request, "institutos/campus.html")
@@ -162,10 +153,81 @@ def login(request):
 
     return render(request, "institutos/iniciar_sesion.html")
 
-
-
 @login_required
 def editar_usuario (request):
     
     if request.method== "GET":
         return render (request, "institutos/editar_usuario.html", {"formulario":None})
+    
+    
+    
+class ProfesorLista(ListView):
+    model = Profesor
+    template_name = "institutos/lista_profesores.html"
+
+def agregar_profesor (request):
+    
+    if request.method == "GET":
+        formulario = ProfesorFormulario()
+        return render (request, "institutos/profesor_formulario.html", {"formulario":formulario})
+    
+    else:   
+        
+        formulario = ProfesorFormulario(request.POST)
+    
+        if formulario.is_valid():
+        
+            informacion = formulario.cleaned_data
+            print (informacion)
+            
+            nombre =  informacion.get ("nombre")
+            apellido =  informacion.get ("apellido")
+            mail =  informacion.get ("mail")
+            profesion =  informacion.get ("profesion")
+            profesor = ProfesorFormulario (nombre= nombre, apellido = apellido, mail = mail, profesion = profesion) 
+        
+            profesor.save()
+            
+            return render (request, "institutos/index.html")
+    
+        else:
+            return HttpResponse ("Formulario no válido")
+                
+def actualizar_profesor (request, id_profesor):
+    if request.method == "GET":
+        formulario = CursoFormulario()
+        contexto = {
+            "formulario": formulario 
+        }
+        
+        return render (request, "institutos/actualizar_profesor.html", contexto)
+
+    else:
+        formulario = CursoFormulario(request.POST)
+        
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            
+            try:  
+                profesor = Profesor.objects.get(id=id_profesor)
+                profesor.nombre = data.get("nombre")
+                profesor.apellido = data.get("apellido")
+                profesor.mail = data.get("mail")
+                profesor.profesion = data.get("profesion")
+                profesor.save()
+            except:
+                return HttpResponse ("Error en la actualizacion")
+            
+        return redirect("info_cursos")
+        
+def borrar_profesor (request, id_profesor) :
+    
+    try:
+        
+        profesor = Profesor.objects.get (id = id_profesor)
+        profesor.delete()
+        
+        return HttpResponse(f"Estas a punto de borrar al profesor: {profesor}")
+    
+    except:
+        return HttpResponse(f"Error! No se pudo borrar al profesor: {id_profesor}")
