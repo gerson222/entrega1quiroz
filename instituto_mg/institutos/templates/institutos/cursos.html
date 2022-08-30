@@ -1,2 +1,29 @@
 {% extends 'institutos/base.html' %}
 
+
+{% block titulo %}  Cursos {% endblock titulo %}
+
+{%block contenido%}
+
+<h1> Acá vas a encontrar todos los cursos disponibles </h1>
+
+<form method="post"> {%csrf_token%}
+
+    {{formulario.as_p}}
+
+    <input type="submit" value="Crear">
+
+</form>
+
+
+{% for curso in cursos %}
+   <p style="color: red"> {{curso.nombre}}  
+        <a href="{% url 'eliminar_curso' curso.id %}"> Borrar </a>
+        <a href="{% url 'actualizar_curso' curso.id %}"> Editar </a>
+
+{% endfor %}
+    
+
+{%endblock contenido%}
+
+    

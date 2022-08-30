@@ -10,7 +10,7 @@
     {%for curso in cursos %}
     <li>{{p}}</li>
     <button>
-        <a href="{% url 'borrar_curso' p.curso%} "> Eliminar </a>
+        <a href="{% url 'borrar_curso' p.nombre%} "> Eliminar </a>
     </button>
 
     {%endfor%}

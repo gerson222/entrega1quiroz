@@ -13,9 +13,10 @@ urlpatterns = [
     path("login/", login, name='login'),
     path("cursos/", cursos, name='info cursos'),
     path("leer_cursos/", leer_cursos, name='leer_cursos'),
-    path("crear_curso/", crear_curso, name='crear_curso'),
+    path("crear_cursos/", crear_cursos, name='crear_cursos'),
     # path("curso_formulario/", curso_formulario, name='curso_formulario'),
     path("buscar_curso/", buscar_curso, name='buscar_curso'),
     path ("buscar/", buscar, name='buscar'),
-    path("borrar_curso/", borrar_curso, name='borrar_curso')
+    path ("borrar_curso/<id_curso>", borrar_curso, name='borrar_curso'),
+    path ("actualizar_curso/<id_curso>", actualizar_curso, name= "actualizar_curso"),
 ]

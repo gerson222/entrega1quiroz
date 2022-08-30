@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de inicio de sesiones</title>
+    <title>Editar Perfil de Usuario</title>
 </head>
 <body>
-    <form method="post">
-        {% csrf_token %}
+    <table>
+    {{mi.Formulario.as_table}}
 
-        {{formulario.as_p}}
-        
-        <input type="submit" value="Iniciar Sesión">
-    </form>
+    </table>
 
+    <input type="submit", value="Enviar">
 </body>
 </html>
