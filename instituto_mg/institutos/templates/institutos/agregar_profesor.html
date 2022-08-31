@@ -1,0 +1,12 @@
+{% extends 'institutos/base.html' %}
+
+
+{% block titulo %} Profesores {% endblock %}
+
+{% block contenido %}
+    
+    {% for profesor in object_list %}
+        <p>{{profesor}}  <a href="{% url 'profesores' profesor.id %}"> Ver mas </a> </p>   
+    {% endfor %}
+
+{% endblock contenido %}

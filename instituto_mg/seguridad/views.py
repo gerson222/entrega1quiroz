@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LogoutView
+from institutos.forms import FormularioRegistroUsuario
 
 
 # Create your views here.
@@ -27,11 +29,11 @@ def iniciar_sesion (request):
     # en afterclass del 12/8 a los 36 min muestra formulario de errores
 def registrar_usuario (request):
     if request.method == "GET":
-        formulario = UserCreationForm()  
+        formulario = FormularioRegistroUsuario()  
         return render (request, "seguridad/registros.html", {"formulario": formulario})  
 
     else: 
-        formulario = UserCreationForm(request.POST)
+        formulario = FormularioRegistroUsuario(request.POST)
         
         if formulario.is_valid():
             formulario.save()

@@ -7,6 +7,8 @@ from django.template import loader
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 # Create your views here.
 
@@ -165,33 +167,11 @@ class ProfesorLista(ListView):
     model = Profesor
     template_name = "institutos/lista_profesores.html"
 
-def agregar_profesor (request):
-    
-    if request.method == "GET":
-        formulario = ProfesorFormulario()
-        return render (request, "institutos/profesor_formulario.html", {"formulario":formulario})
-    
-    else:   
-        
-        formulario = ProfesorFormulario(request.POST)
-    
-        if formulario.is_valid():
-        
-            informacion = formulario.cleaned_data
-            print (informacion)
-            
-            nombre =  informacion.get ("nombre")
-            apellido =  informacion.get ("apellido")
-            mail =  informacion.get ("mail")
-            profesion =  informacion.get ("profesion")
-            profesor = ProfesorFormulario (nombre= nombre, apellido = apellido, mail = mail, profesion = profesion) 
-        
-            profesor.save()
-            
-            return render (request, "institutos/index.html")
-    
-        else:
-            return HttpResponse ("Formulario no válido")
+class AgregarProfesor(LoginRequiredMixin, CreateView):
+    model = Profesor
+    success_url = "/institutos/lista_profesores/"
+    fields = ["nombre", "apellido", "email", "profesion"]
+    template_name = "institutos/agregar_profesor.html"
                 
 def actualizar_profesor (request, id_profesor):
     if request.method == "GET":

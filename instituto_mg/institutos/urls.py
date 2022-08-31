@@ -20,6 +20,5 @@ urlpatterns = [
     path ("borrar_curso/<id_curso>", borrar_curso, name='borrar_curso'),
     path ("actualizar_curso/<id_curso>", actualizar_curso, name= "actualizar_curso"),
     path ("profesores/", ProfesorLista.as_view(), name="profesores"),
-    path ("agregar_profesor/", agregar_profesor, name="agregar_profesor"),
-    path ("actualizar_profesor/", actualizar_profesor, name="actualizar_profesor"),
+    path("agregar_profesor", AgregarProfesor.as_view(), name="agregar_profesor"),
 ]
