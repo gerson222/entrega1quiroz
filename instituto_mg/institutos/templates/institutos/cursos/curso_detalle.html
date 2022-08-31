@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Página de registro</title>
+    <title>Detalle de los cursos </title>
 </head>
 <body>
-    <form method="post">
-        {% csrf_token %}
+    
+    <p>Nombre del curso: <i>{{curso.nombre}}</i></p>
+    <p>Camada: <i>{{curso.camada}}</i></p>
+    <p>
+        <a href="{% url  'info_cursos'   %}"> Regresar </a>
+    </p>
 
-    {{formulario.as_p}}
-    <input type="submit" value="Registrar">
 
 
-    </form>
 </body>
 </html>

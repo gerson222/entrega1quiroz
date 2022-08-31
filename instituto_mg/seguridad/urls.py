@@ -1,9 +1,8 @@
 from django.urls import path
-from seguridad.views import iniciar_sesion, registrar_usuario, deslogueo
+from seguridad.views import iniciar_sesion, deslogueo
 
 urlpatterns = [
-    path ("login/", iniciar_sesion, name= "Inicio_sesion"),
-    path("registrar/", registrar_usuario, name="registrar"),
+    path ("iniciar_sesion/", iniciar_sesion, name= "Inicio_sesion"),
     path("deslogueo/", deslogueo, name="cerrar_sesion"),
     
 ]

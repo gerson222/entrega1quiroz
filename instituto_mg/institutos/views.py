@@ -1,7 +1,8 @@
+from ast import Delete
 from typing import List
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from institutos.forms import ProfesorFormulario, CursoFormulario
+from institutos.forms import ProfesorFormulario, CursoFormulario, FormularioRegistroUsuario, UserCreationForm
 from institutos.models import Curso, Profesor, Estudiante, Entregable
 from django.template import loader
 from datetime import datetime
@@ -33,7 +34,7 @@ def cursos (request):
             "formulario": formulario
         }
         
-        return render (request, "institutos/cursos.html", contexto)
+        return render (request, "institutos/cursos/cursos.html", contexto)
     else:     
         formulario= CursoFormulario(request.POST)
         if formulario.is_valid():
@@ -49,9 +50,6 @@ def cursos (request):
             "formulario": formulario
         }
         return render (request, "institutos/index.html",contexto)
-
-def buscar_curso (request):
-    return render (request, "institutos/buscar_curso.html")
 
 def buscar (request):
     if request.GET["curso"]:
@@ -76,10 +74,18 @@ def borrar_curso (request, id_curso) :
     except:
         return HttpResponse(f"Error! No se pudo borrar el curso: {id_curso}")
 
+class CursoBorrar (DeleteView):
+    model = Curso
+    success_url = "institutos/cursos/cursos.html"
+
 def leer_cursos (request):
     curso = Curso.objects.all()
     contexto ={"curso":curso}
     return render (request, "institutos/leer_cursos.html", contexto )
+
+class CursoList (ListView):
+    model = Curso
+    template_name = "institutos/cursos/cursos.html"
 
 def crear_cursos (request):
     if request.method == "GET":
@@ -106,6 +112,10 @@ def crear_cursos (request):
         else:
             return HttpResponse ("Formulario no válido")
 
+class CrearCurso (CreateView):
+    model = Curso
+    success_url = "institutos/cursos/cursos.html"
+
 def actualizar_curso (request, id_curso):
     if request.method == "GET":
         formulario = CursoFormulario()
@@ -130,6 +140,17 @@ def actualizar_curso (request, id_curso):
                 return HttpResponse ("Error en la actualizacion")
             
         return redirect("info_cursos")
+
+class ActualizarCurso (UpdateView):
+    model = Curso
+    success_url = "institutos/cursos/cursos.html"
+    fields = ["nombre", "camada"]
+
+class CursoDetalle(DetailView):
+    model = Curso
+    template_name = "institutos/cursos/curso_detalle.html"
+
+
                 
 def campus(request):
 
@@ -165,13 +186,13 @@ def editar_usuario (request):
     
 class ProfesorLista(ListView):
     model = Profesor
-    template_name = "institutos/lista_profesores.html"
+    template_name = "institutos/profesores/lista_profesores.html"
 
 class AgregarProfesor(LoginRequiredMixin, CreateView):
     model = Profesor
-    success_url = "/institutos/lista_profesores/"
+    success_url = "/profesores/lista_profesores"
     fields = ["nombre", "apellido", "email", "profesion"]
-    template_name = "institutos/agregar_profesor.html"
+    template_name = "institutos/profesores/profesor_formulario.html"
                 
 def actualizar_profesor (request, id_profesor):
     if request.method == "GET":
@@ -183,7 +204,7 @@ def actualizar_profesor (request, id_profesor):
         return render (request, "institutos/actualizar_profesor.html", contexto)
 
     else:
-        formulario = CursoFormulario(request.POST)
+        formulario = ProfesorFormulario(request.POST)
         
         if formulario.is_valid():
             data = formulario.cleaned_data
@@ -211,3 +232,21 @@ def borrar_profesor (request, id_profesor) :
     
     except:
         return HttpResponse(f"Error! No se pudo borrar al profesor: {id_profesor}")
+    
+    
+    
+def registrar(request):
+    
+    if request.method == "GET":
+        formulario = FormularioRegistroUsuario()
+        return render(request, "institutos/registros.html", {"formulario": formulario})
+    
+    else:
+        formulario = FormularioRegistroUsuario(request.POST)
+        
+        if formulario.is_valid():
+            formulario.save()
+            return redirect("inicio")
+        
+        else:
+            return render(request, "institutos/registros.html", {"formulario": formulario, "error": "Formulario NO valido"})
