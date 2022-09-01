@@ -261,11 +261,11 @@ def Pagos(request):
 
         if formulario_pagos.is_valid():
 
-            informacion = formulario_pagos.cleaned_data
+            data = formulario_pagos.cleaned_data
 
-            Infopago = Pago(Nombre=informacion['Nombre_del_estudiante'], Apellido=informacion['Apellido_del_estudiante'], Email=informacion['Email_del_estudiante'], Dni=informacion['Numero_de_documento_de_Identidad'], Curso=informacion['Curso_abonado'], Telefono=informacion['Telefono_WhastApp'])
+            Infopago = Pago(Nombre=data['Nombre_del_estudiante'], Apellido=data['Apellido_del_estudiante'], Email=data['Email_del_estudiante'], Dni=data['Numero_de_documento_de_Identidad'], Curso=data['Curso_abonado'], Telefono=data['Telefono_WhastApp'])
 
-            Pago.save()
+            Infopago.save()
 
             return render(request, "institutos/index.html")
 
