@@ -23,3 +23,11 @@ class FormularioRegistroUsuario(UserCreationForm):
         model = User
         fields = ["username", "email", "password1", "password2"]
         help_texts = { "username": "", "email": "", "password1": "", "password2": "" }
+
+class InformePagoFormulario (Form):
+    Nombre_del_estudiante= CharField()
+    Apellido_del_estudiante= CharField()
+    Email_del_estudiante= EmailField()
+    Numero_de_documento_de_Identidad= IntegerField()
+    Curso_abonado= CharField()
+    Telefono_WhastApp= IntegerField()

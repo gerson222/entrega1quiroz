@@ -30,3 +30,14 @@ class Entregable(models.Model):
     nombre = models.CharField(max_length=30)
     fechaDeEntrega = models.DateField()
     entregado = models.BooleanField()
+
+class Pago(models.Model):
+    Nombre= models.CharField(max_length=30)
+    Apellido= models.CharField(max_length=30)
+    Email= models.EmailField()
+    Dni= models.IntegerField()
+    Curso= models.CharField(max_length=50)
+    Telefono= models.IntegerField()
+
+    def __str__(self):
+        return f"{self.Nombre} {self.Apellido} {self.Dni}"

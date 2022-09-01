@@ -2,8 +2,8 @@ from ast import Delete
 from typing import List
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from institutos.forms import ProfesorFormulario, CursoFormulario, FormularioRegistroUsuario, UserCreationForm
-from institutos.models import Curso, Profesor, Estudiante, Entregable
+from institutos.forms import ProfesorFormulario, CursoFormulario, FormularioRegistroUsuario, InformePagoFormulario
+from institutos.models import Curso, Profesor, Estudiante, Entregable, Pago
 from django.template import loader
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -250,3 +250,26 @@ def registrar(request):
         
         else:
             return render(request, "institutos/registros.html", {"formulario": formulario, "error": "Formulario NO valido"})
+
+def Pagos(request):
+
+    if request.method == "POST":
+
+        formulario_pagos = InformePagoFormulario(request.POST)
+
+        print(formulario_pagos)
+
+        if formulario_pagos.is_valid():
+
+            informacion = formulario_pagos.cleaned_data
+
+            Infopago = Pago(Nombre=informacion['Nombre_del_estudiante'], Apellido=informacion['Apellido_del_estudiante'], Email=informacion['Email_del_estudiante'], Dni=informacion['Numero_de_documento_de_Identidad'], Curso=informacion['Curso_abonado'], Telefono=informacion['Telefono_WhastApp'])
+
+            Pago.save()
+
+            return render(request, "institutos/index.html")
+
+    else:
+        formulario_pagos = InformePagoFormulario()
+
+        return render(request, "institutos/pagos.html", {'formularioP':formulario_pagos})

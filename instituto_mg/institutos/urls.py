@@ -25,4 +25,5 @@ urlpatterns = [
     path ("profesores/", ProfesorLista.as_view(), name="profesores"),
     path("agregar_profesor", AgregarProfesor.as_view(), name="agregar_profesor"),
     path("registrar/", registrar, name="registrar"),
+    path ("pagos/", Pagos, name= 'formulariopagos'),
 ]
