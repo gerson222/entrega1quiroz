@@ -39,6 +39,7 @@ def cursos (request):
         return render (request, "institutos/cursos/cursos.html", contexto)
     
 def crear_cursos (request):
+    
     if request.method == "POST":
         formulario = CursoFormulario(request.POST)
         print (formulario)
@@ -47,7 +48,7 @@ def crear_cursos (request):
         
             informacion = formulario.cleaned_data
             
-            curso = Curso (nombre= informacion ["nombre"], camada = informacion ["camada"]) 
+            curso = Curso (nombre= informacion ['nombre'], camada = informacion ['camada']) 
         
             curso.save()
         
