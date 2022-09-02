@@ -7,7 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/crear_curso" method="POST"> {% csrf_token %}
+    <form  method="POST"> {% csrf_token %}
+        {{formulario_as.p}}
         <p> Curso: <input type= "text" name= "Curso"> </p>
         <p> Camada: <input type= "text" name= "Camada"> </p>
 

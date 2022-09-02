@@ -33,28 +33,32 @@ def cursos (request):
         formulario = CursoFormulario ()
         
         contexto = {
-            "mensaje_bienvenida": "Te damos la bienvenida",
-            "curso": curso ,
-            "formulario": formulario
+            "cursos":cursos
         }
         
         return render (request, "institutos/cursos/cursos.html", contexto)
-    else:     
-        formulario= CursoFormulario(request.POST)
+    
+def crear_cursos (request):
+    if request.method == "POST":
+        formulario = CursoFormulario(request.POST)
+        print (formulario)
+        
         if formulario.is_valid():
-            data = formulario.cleaned_data    
-            nombre = data.get("nombre")
-            camada = data.get("camada")
-            curso = Curso (nombre=nombre,camada=camada )
-            curso.save()
+        
+            informacion = formulario.cleaned_data
             
-            contexto = {
-            "mensaje_bienvenida": "Te damos la bienvenida",
-            "curso": curso ,
-            "formulario": formulario
-        }
-        return render (request, "institutos/index.html",contexto)
-
+            curso = Curso (nombre= informacion ["nombre"], camada = informacion ["camada"]) 
+        
+            curso.save()
+        
+        return render (request, "institutos/cursos/cursos.html")
+    
+    else:   
+        
+        formulario = CursoFormulario()
+        
+        return render (request, "institutos/cursos/crear_cursos.html",  {"formulario":formulario})
+    
 def buscar (request):
     if request.GET["curso"]:
         curso = request.GET ["curso"]
@@ -66,60 +70,6 @@ def buscar (request):
     
     return HttpResponse(respuesta)
         
-def borrar_curso (request, id_curso) :
-    
-    try:
-        
-        curso = Curso.objects.get (id = id_curso)
-        curso.delete()
-        
-        return HttpResponse(f"Estas a punto de borrar el curso: {curso}")
-    
-    except:
-        return HttpResponse(f"Error! No se pudo borrar el curso: {id_curso}")
-
-class CursoBorrar (DeleteView):
-    model = Curso
-    success_url = "institutos/cursos/cursos.html"
-
-def leer_cursos (request):
-    curso = Curso.objects.all()
-    contexto ={"curso":curso}
-    return render (request, "institutos/leer_cursos.html", contexto )
-
-class CursoList (ListView):
-    model = Curso
-    template_name = "institutos/cursos/cursos.html"
-
-def crear_cursos (request):
-    if request.method == "GET":
-        formulario = CursoFormulario()
-        return render (request, "institutos/curso_formulario.html", {"formulario":formulario})
-    
-    else:   
-        
-        formulario = CursoFormulario(request.POST)
-    
-        if formulario.is_valid():
-        
-            informacion = formulario.cleaned_data
-            print (informacion)
-            
-            nombre=  informacion.get ("nombre")
-            camada=  informacion.get ("camada")
-            curso = Curso (nombre= nombre, camada = camada) 
-        
-            curso.save()
-            
-            return render (request, "institutos/index.html")
-    
-        else:
-            return HttpResponse ("Formulario no válido")
-
-class CrearCurso (CreateView):
-    model = Curso
-    success_url = "institutos/cursos/cursos.html"
-
 def actualizar_curso (request, id_curso):
     if request.method == "GET":
         formulario = CursoFormulario()
@@ -145,17 +95,8 @@ def actualizar_curso (request, id_curso):
             
         return redirect("info_cursos")
 
-class ActualizarCurso (UpdateView):
-    model = Curso
-    success_url = "institutos/cursos/cursos.html"
-    fields = ["nombre", "camada"]
-
-class CursoDetalle(DetailView):
-    model = Curso
-    template_name = "institutos/cursos/curso_detalle.html"
 
 
-                
 def campus(request):
 
     return render(request, "institutos/campus.html")
