@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from django.db import models
 
 # Create your models here.
@@ -41,3 +42,4 @@ class Pago(models.Model):
 
     def __str__(self):
         return f"{self.Nombre} {self.Apellido} {self.Dni}"
+    

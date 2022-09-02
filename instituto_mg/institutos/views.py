@@ -2,6 +2,7 @@ from ast import Delete
 from typing import List
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from institutos.forms import EditarUsuario
 from institutos.forms import ProfesorFormulario, CursoFormulario, FormularioRegistroUsuario, InformePagoFormulario
 from institutos.models import Curso, Profesor, Estudiante, Entregable, Pago
 from django.template import loader
@@ -10,12 +11,15 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.views import LogoutView
+
 
 # Create your views here.
 
 def inicio(request):
 
     return render(request, "institutos/index.html")
+
 
 def comentarios(request):
 
@@ -178,9 +182,25 @@ def login(request):
 
 @login_required
 def editar_usuario (request):
+    usuario = request.user
     
-    if request.method== "GET":
-        return render (request, "institutos/editar_usuario.html", {"formulario":None})
+    if request.method == "POST":
+        formulario = EditarUsuario (request.POST)
+        if formulario.is_valid:
+                informacion = formulario.cleaned_data
+                
+                usuario.email = ["email"]
+                usuario.password1 = ["password1"]
+                usuario.password2 = ["password2"]
+                usuario.save()
+                    
+                return render (request, "institutos/index.html")
+                
+        else:
+                
+                formulario = EditarUsuario (initial = {"email": usuario.email})
+                
+                return render (request, "institutos/usuarios/editar_usuario.html", {"formulario": formulario, "usuario": usuario})
     
     
     
@@ -194,14 +214,14 @@ class AgregarProfesor(LoginRequiredMixin, CreateView):
     fields = ["nombre", "apellido", "email", "profesion"]
     template_name = "institutos/profesores/profesor_formulario.html"
                 
-def actualizar_profesor (request, id_profesor):
+def agregar_profesor (request, id_profesor):
     if request.method == "GET":
         formulario = CursoFormulario()
         contexto = {
             "formulario": formulario 
         }
         
-        return render (request, "institutos/actualizar_profesor.html", contexto)
+        return render (request, "institutos/agregar_profesor.html", contexto)
 
     else:
         formulario = ProfesorFormulario(request.POST)
@@ -232,9 +252,7 @@ def borrar_profesor (request, id_profesor) :
     
     except:
         return HttpResponse(f"Error! No se pudo borrar al profesor: {id_profesor}")
-    
-    
-    
+        
 def registrar(request):
     
     if request.method == "GET":
