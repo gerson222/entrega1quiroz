@@ -46,4 +46,6 @@ class InformePagoFormulario (Form):
     Telefono_WhastApp= IntegerField()
 
 class Comentarios (Form):
-    tu_nombre= CharField()
+    Tu_nombre= CharField()
+    Tu_comentario= CharField()
+    

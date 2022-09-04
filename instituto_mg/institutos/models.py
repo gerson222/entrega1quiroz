@@ -43,3 +43,13 @@ class Pago(models.Model):
     def __str__(self):
         return f"{self.Nombre} {self.Apellido} {self.Dni}"
     
+class Comentarios(models.Model):
+    Tu_nombre= models.CharField(max_length=30)
+    Seleccionar_curso= models.DateField()
+    Email= models.EmailField()
+    Valoracion= models.BooleanField()
+    Tu_comentario= models.BooleanField
+    
+    def __str__(self):
+        return f"{self.Nombre} {self.Apellido} {self.Dni}"
+    

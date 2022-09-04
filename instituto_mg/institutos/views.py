@@ -12,6 +12,7 @@ from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LogoutView
+from institutos.forms import Comentarios
 
 
 # Create your views here.
