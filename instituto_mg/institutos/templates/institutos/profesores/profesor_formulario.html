@@ -8,10 +8,8 @@
 </head>
 <body>
 
-    {%if formulario.errores%}
-    <p style="color:red"> Revisá los datos!  </p>
-    {%endif%}
-    <form method="POST">
+    
+    <form  action="{% url 'inicio' %}" method="POST">
     {% csrf_token %}
 
         <table>
@@ -25,8 +23,8 @@
 
         </table>
         
-    <input type="button", value="Enviar">
-
+            <input type="submit", value="Enviar">
+            
     </form>
 </body>
 </html>

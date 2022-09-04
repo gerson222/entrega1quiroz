@@ -7,14 +7,10 @@
     <title>Eliminando Profesor</title>
 </head>
 <body>
-    {%for profesor in profesores %}
-    <li>{{p}}</li>
-    <button>
-        <a href="{% url 'borrar_profesor' p.nombre%} "> Eliminar </a>
-    </button>
-
-    {%endfor%}
-
-    <a href="cursos">Agregar otro Profesor </a>
+    <form method="post"> {% csrf_token %}
+        
+        <p>Desea borrar efectivamente al/la profesor/a {{object}}</p>
+        <input type="submit" value="Confirmar">
+        <a href="{% url 'profesores' %}">Volver</a>
 </body>
 </html>

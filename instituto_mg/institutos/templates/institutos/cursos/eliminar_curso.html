@@ -7,12 +7,15 @@
     <title>Eliminando curso</title>
 </head>
 <body>
-    <form method="post"> {% csrf_token %}
-        ¿Estás seguro que querés borrar el curso "{{object}}" ?
+    {%for curso in cursos %}
+    <li>{{p}}</li>
+    <button>
+        <a href="{% url 'eliminar_curso' p.nombre%} "> Eliminar </a>
+    </button>
 
-        <input type = "submit", value="Borrar">
+    {%endfor%}
 
-        </form>
+    <a href='crear_curso'>Agregar otro Curso </a>
 
    
 </body>
