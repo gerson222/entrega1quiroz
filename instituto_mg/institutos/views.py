@@ -9,8 +9,10 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic.edit import DeleteView
 from django.contrib.auth.views import LogoutView
+
 
 
 # Create your views here.
@@ -26,23 +28,20 @@ def comentarios(request):
 
 def cursos (request):
     
-    curso= Curso.objects.all()
-    
+    curso = Curso.objects.all()
     if request.method == "GET":
-        formulario = CursoFormulario ()
-        
+        formulario = CursoFormulario()
+    
         contexto = {
             "cursos":cursos
         }
         
         return render (request, "institutos/cursos/cursos.html", contexto)
-    
-def crear_cursos (request):
-    
-    if request.method == "POST":
+
+
+    else:
         formulario = CursoFormulario(request.POST)
-        print (formulario)
-        
+
         if formulario.is_valid():
         
             infoC = formulario.cleaned_data
@@ -50,14 +49,35 @@ def crear_cursos (request):
             curso = Curso(Nombre=infoC['curso'], Camada=infoC['camada']) 
         
             curso.save()
+
+        formulario = CursoFormulario()
+        contexto = {
+            "cursos":cursos
+        }
         
-        return render (request, "institutos/cursos/cursos.html")
+        return render(request, "institutos/cursos/cursos.html", contexto)
+    
+@login_required
+def crear_cursos (request):
+    formulario = CursoFormulario(request.POST)
+    print (formulario)
+        
+    if formulario.is_valid():
+        
+        informacion = formulario.cleaned_data
+            
+        curso = Curso (nombre= informacion ['nombre'], camada = informacion ['camada']) 
+        
+        curso.save()
+    
+        return redirect (request, "institutos/cursos/cursos.html")
     
     else:   
         
         formulario = CursoFormulario()
         
         return render (request, "institutos/cursos/crear_cursos.html",  {"formulario":formulario})
+
     
 def buscar (request):
     if request.GET["curso"]:
@@ -69,7 +89,8 @@ def buscar (request):
         respuesta = "No enviaste datos"
     
     return HttpResponse(respuesta)
-        
+
+@login_required        
 def actualizar_curso (request, id_curso):
     if request.method == "GET":
         formulario = CursoFormulario()
@@ -94,7 +115,16 @@ def actualizar_curso (request, id_curso):
                 return HttpResponse ("Error en la actualizacion")
             
         return redirect("info_cursos")
-
+    
+    
+@login_required
+def eliminar_curso (request, curso_nombre):
+    curso = Curso.objects.get (nombre= curso_nombre)
+    curso.delete()
+    
+    curso = Curso.objects.all ()
+    contexto = {"cursos": cursos}
+    return render (request, "institutos/cursos/cursos.html", contexto)
 
 
 def campus(request):
@@ -155,44 +185,14 @@ class AgregarProfesor(LoginRequiredMixin, CreateView):
     fields = ["nombre", "apellido", "email", "profesion"]
     template_name = "institutos/profesores/profesor_formulario.html"
                 
-def agregar_profesor (request, id_profesor):
-    if request.method == "GET":
-        formulario = CursoFormulario()
-        contexto = {
-            "formulario": formulario 
-        }
-        
-        return render (request, "institutos/agregar_profesor.html", contexto)
+class ProfesorDetalle (DetailView):
+    model = Profesor
+    template_name = "institutos/profesores/profesor_detalle.html"
 
-    else:
-        formulario = ProfesorFormulario(request.POST)
-        
-        if formulario.is_valid():
-            data = formulario.cleaned_data
-            
-            try:  
-                profesor = Profesor.objects.get(id=id_profesor)
-                profesor.nombre = data.get("nombre")
-                profesor.apellido = data.get("apellido")
-                profesor.mail = data.get("mail")
-                profesor.profesion = data.get("profesion")
-                profesor.save()
-            except:
-                return HttpResponse ("Error en la actualizacion")
-            
-        return redirect("info_cursos")
-        
-def borrar_profesor (request, id_profesor) :
-    
-    try:
-        
-        profesor = Profesor.objects.get (id = id_profesor)
-        profesor.delete()
-        
-        return HttpResponse(f"Estas a punto de borrar al profesor: {profesor}")
-    
-    except:
-        return HttpResponse(f"Error! No se pudo borrar al profesor: {id_profesor}")
+class EliminarProfesor (DeleteView):
+    model = Profesor
+    success_url= "/appinstituto/profesores/"
+    template_name = "institutos/profesor/eliminar_profesor.html"
         
 def registrar(request):
     

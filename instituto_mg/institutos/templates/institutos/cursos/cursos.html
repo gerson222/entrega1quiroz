@@ -7,9 +7,16 @@
 
     {% for curso  in cursos %}
 
-    
+    <li> {{curso}} </li>
 
-    <li>{{curso}}/li>
+    <button>
+        <a href="{%  url 'actualizar' %}"> Editar Curso</a>
+        <a href="{%  url 'eliminar' %}"> Eliminar Curso</a>
+        <a href="{%  url 'Cursodetalle' %}"> Ver </a>
+
+
+
+        </button>
     
     {%endfor%}
 

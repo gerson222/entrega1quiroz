@@ -5,7 +5,11 @@
 
 
 {% for profesor in object_list %}
-    <p>{{profesor}}</p>     
+    <p>{{profesor}}</p>    
+    
+    
+        <a href="{% url 'profesor_detalle' profesor.id %}"> Ver Más </a>
+
 {% endfor %}
     
     
