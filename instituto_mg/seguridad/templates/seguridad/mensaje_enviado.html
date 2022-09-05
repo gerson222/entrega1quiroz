@@ -4,19 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos nuevos</title>
+    <title>Mensaje Enviado!</title>
 </head>
 <body>
-    <form  method="POST"> {% csrf_token %}
-
-        <table>
-
-            {{formulario.as_p}}
+   <h1>  Tu mensaje se envió con éxito! </h1>
+   <a href="{% url 'inicio' %} "> Volver a Home </a>
     
-        </table>
-
-        <input type = "submit" value= "Crear">
-
-    </form>
 </body>
 </html>

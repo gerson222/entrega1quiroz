@@ -3,7 +3,9 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView
-
+from django.views.generic import ListView
+from seguridad.forms import FormularioMensajes
+from seguridad.models import Mensajes
 
 
 # Create your views here.
@@ -50,3 +52,37 @@ def deslogueo (request):
     logout(request)
     return redirect ("inicio")
 
+
+
+def mensajes (request):
+    
+    mensaje = Mensajes.objects.all()
+
+    if request.method == "GET":
+
+        formulario = FormularioMensajes()
+    
+        contexto = {
+            "formulario":formulario
+        }
+        
+        return render (request, "seguridad/mensajes.html", contexto)
+
+    else:
+        formulario = FormularioMensajes(request.POST)
+
+        if formulario.is_valid():
+        
+            data = formulario.cleaned_data
+            
+            mensajes = Mensajes (autor = data['autor'], mensaje = data['mensaje'], destinatario = data ['destinatario']) 
+        
+            mensajes.save()
+
+        formulario = FormularioMensajes()
+        contexto = {
+            "formulario":formulario
+        }
+        
+        return render(request, "seguridad/mensaje_enviado.html", contexto)
+    
