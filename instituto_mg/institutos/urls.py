@@ -27,6 +27,7 @@ urlpatterns = [
     path("cursos/", cursos, name='info_cursos'),
     #campus
     path("campus/", campus, name='campus'),
+    path("cursosadm/", cursos, name='cursosadm'),
     path ("crear_cursos/", crear_cursos, name="crear_cursos"),
     path("actualizar_curso/", actualizar_curso, name = "actualizar"),
     path ("eliminar_curso", eliminar_curso, name = "eliminar"),

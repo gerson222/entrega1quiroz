@@ -29,15 +29,16 @@ def comentarios(request):
 def cursos (request):
     
     curso = Curso.objects.all()
+
     if request.method == "GET":
+
         formulario = CursoFormulario()
     
         contexto = {
             "cursos":cursos
         }
         
-        return render (request, "institutos/cursos/cursos.html", contexto)
-
+        return render (request, "institutos/cursos/cursosadm.html", contexto)
 
     else:
         formulario = CursoFormulario(request.POST)
@@ -55,12 +56,11 @@ def cursos (request):
             "cursos":cursos
         }
         
-        return render(request, "institutos/cursos/cursos.html", contexto)
+        return render(request, "institutos/cursos/cursosadm.html", contexto)
     
 @login_required
 def crear_cursos (request):
     formulario = CursoFormulario(request.POST)
-    print (formulario)
         
     if formulario.is_valid():
         
@@ -70,7 +70,7 @@ def crear_cursos (request):
         
         curso.save()
     
-        return redirect (request, "institutos/cursos/cursos.html")
+        return redirect (request, "institutos/cursos/cursosadm.html")
     
     else:   
         
@@ -114,7 +114,7 @@ def actualizar_curso (request, id_curso):
             except:
                 return HttpResponse ("Error en la actualizacion")
             
-        return redirect("info_cursos")
+        return redirect("cursoadm")
     
     
 @login_required
@@ -215,8 +215,6 @@ def Pagos(request):
     if request.method == "POST":
 
         formulario_pagos = InformePagoFormulario(request.POST)
-
-        print(formulario_pagos)
 
         if formulario_pagos.is_valid():
 
