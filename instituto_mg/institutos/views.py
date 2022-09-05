@@ -2,9 +2,8 @@ from ast import Delete
 from typing import List
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from institutos.forms import EditarUsuario
-from institutos.forms import ProfesorFormulario, CursoFormulario, FormularioRegistroUsuario, InformePagoFormulario
-from institutos.models import Curso, Profesor, Estudiante, Entregable, Pago
+from institutos.forms import *
+from institutos.models import *
 from django.template import loader
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -12,7 +11,6 @@ from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LogoutView
-from institutos.forms import Comentarios
 
 
 # Create your views here.
@@ -47,9 +45,9 @@ def crear_cursos (request):
         
         if formulario.is_valid():
         
-            informacion = formulario.cleaned_data
+            infoC = formulario.cleaned_data
             
-            curso = Curso (nombre= informacion ['nombre'], camada = informacion ['camada']) 
+            curso = Curso(Nombre=infoC['curso'], Camada=infoC['camada']) 
         
             curso.save()
         
@@ -109,15 +107,15 @@ def usuario(request):
 
 def fisica(request):
 
-    return render(request, "institutos/fisica.html")
+    return render(request, "institutos/clases/fisica.html")
 
 def quimica(request):
 
-    return render(request, "institutos/quimica.html")
+    return render(request, "institutos/clases/quimica.html")
 
 def matematica(request):
 
-    return render(request, "institutos/matematica.html")
+    return render(request, "institutos/clases/matematica.html")
 
 def login(request):
 
