@@ -119,7 +119,7 @@ def matematica(request):
 
 def login(request):
 
-    return render(request, "institutos/iniciar_sesion.html")
+    return render(request, "institutos/usuario/iniciar_sesion.html")
 
 @login_required
 def editar_usuario (request):
@@ -151,7 +151,7 @@ class ProfesorLista(ListView):
 
 class AgregarProfesor(LoginRequiredMixin, CreateView):
     model = Profesor
-    success_url = "/profesores/lista_profesores"
+    success_url = "/appinstituto/profesores/"
     fields = ["nombre", "apellido", "email", "profesion"]
     template_name = "institutos/profesores/profesor_formulario.html"
                 

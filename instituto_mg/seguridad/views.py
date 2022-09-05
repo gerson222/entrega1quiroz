@@ -29,7 +29,7 @@ def iniciar_sesion (request):
             
             if user is not None:
                 login (request, user)
-                return redirect ("inicio")
+                return redirect ("campus")
             
             else:
                 contexto = {
