@@ -47,11 +47,11 @@ def crear_cursos (request):
         
         informacion = formulario.cleaned_data
             
-        curso = Curso (nombre= informacion ['nombre'], camada = informacion ['camada']) 
+        curso = Curso(Nombre=informacion['curso'], Camada=informacion['camada']) 
         
         curso.save()
     
-        return redirect (request, "institutos/cursos/cursosadm.html")
+        return render(request, "institutos/cursos/cursosadm.html")
     
     else:   
         
@@ -90,8 +90,8 @@ def actualizar_curso (request, id_curso):
             try:  
                 curso = Curso.objects.get(id=id_curso)
                 
-                curso.nombre = data.get("nombre")
-                curso.camada = data.get("camada")
+                curso.nombre = data.get("Nombre")
+                curso.camada = data.get("Camada")
                 curso.save()
             except:
                 return HttpResponse ("Error en la actualizacion")
@@ -100,8 +100,8 @@ def actualizar_curso (request, id_curso):
     
     
 @login_required
-def eliminar_curso (request, curso_nombre):
-    curso = Curso.objects.get (nombre = curso_nombre)
+def eliminar_curso (request):
+    curso = Curso.objects.get()
     curso.delete()
 
     contexto = {"cursos" : cursos}
