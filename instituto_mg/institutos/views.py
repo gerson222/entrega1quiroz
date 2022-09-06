@@ -1,5 +1,3 @@
-from ast import Delete
-from typing import List
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from institutos.forms import *
@@ -184,30 +182,34 @@ class ProfesorLista(ListView):
     model = Profesor
     template_name = "institutos/profesores/lista_profesores.html"
 
-class AgregarProfesor(LoginRequiredMixin, CreateView):
-    model = Profesor
-    success_url = "/appinstituto/profesores/"
-    fields = ["nombre", "apellido", "email", "profesion"]
-    template_name = "institutos/profesores/profesor_formulario.html"
+#class AgregarProfesor(LoginRequiredMixin, CreateView):
+    #model = Profesor
+    #success_url = "/appinstituto/profesores/"
+    #fields = ["nombre", "apellido", "email", "profesion"]
+    #template_name = "institutos/profesores/profesor_formulario.html"
  
  
 def agregar_profesor (request):
 
     if request.method == "POST":
-        formulario = ProfesorFormulario  (request.POST)
+
+        formulario_profe = ProfesorFormulario(request.POST)
         
-        print (formulario)
-        if formulario.is_valid:
-            informacion = formulario.cleaned_data
-            profesor = Profesor (nombre = informacion['nombre'], apellido = informacion['apellido'], email = informacion['email'], profesion = informacion ['profesion'])
+        if formulario_profe.is_valid():
+
+            informacion = formulario_profe.cleaned_data
+
+            profesor = Profesor(nombre=informacion['nombre'], apellido=informacion['apellido'], email=informacion['email'], profesion=informacion['profesion'])
+
             profesor.save()
+
             return render(request, "institutos/profesores/lista_profesores.html")
 
     else:
 
-        formulario = ProfesorFormulario()
+        formulario_profe= ProfesorFormulario()
 
-    return render(request, "institutos/profesores/profesor_formulario.html", {"formulario":formulario})
+    return render(request, "institutos/profesores/profesor_formulario.html", {'formularioProfe':formulario_profe})
                 
 class ProfesorDetalle (DetailView):
     model = Profesor

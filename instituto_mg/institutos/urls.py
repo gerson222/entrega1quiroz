@@ -11,7 +11,7 @@ urlpatterns = [
     path ("buscar/", buscar, name='buscar'),
     #profesores
     path ("profesores/", ProfesorLista.as_view(), name="profesores"),
-    path("crear_profesor/", AgregarProfesor.as_view(), name="crear_profesor"),
+    #path("crear_profesor/", AgregarProfesor.as_view(), name="crear_profesor"),
     path ("eliminar_profesor/<pk>", EliminarProfesor.as_view(), name ="eliminar_profesor"),
     path("profesor_detalle/<pk>", ProfesorDetalle.as_view(), name="profesor_detalle"),
     path ("agregar_profesor/", agregar_profesor, name ="Agregar"),

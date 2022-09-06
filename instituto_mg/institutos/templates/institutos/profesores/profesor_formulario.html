@@ -1,30 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario para ingreso de nuevos profesores</title>
-</head>
-<body>
+{% extends 'institutos/base.html' %}
 
-    
+{% block comentarios %}
+{% endblock %}
+
+{% block cursos %}
     <form  action="{% url 'Agregar' %}" method="POST">
-    {% csrf_token %}
+
+        {% csrf_token %}
 
         <table>
 
-            {{formulario_as.p}}
+            {{formularioProfe_as.p}}
             
-            <p> Nombre: <input type= "text" name="Nombre"></p>
+        </table>
+
+        <input type="submit", value="Enviar">
+              
+    </form>
+{% endblock %}
+
+{% block materia_principal %}
+{% endblock %}
+
+{% block materia_secundaria %}
+{% endblock %}
+
+<!--<p> Nombre: <input type= "text" name="Nombre"></p>
             <p> Apellido: <input type= "text" name="Apellido"></p>
             <p> Mail: <input type= "text" name="Mail"></p>
             <p> Profesion: <input type= "text" name="Profesion"></p>
-            <input type="submit", value="Enviar">
-        </table>
-        
-            
-            
-    </form>
-</body>
-</html>
