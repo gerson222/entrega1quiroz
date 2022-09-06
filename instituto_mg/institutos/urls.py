@@ -11,9 +11,10 @@ urlpatterns = [
     path ("buscar/", buscar, name='buscar'),
     #profesores
     path ("profesores/", ProfesorLista.as_view(), name="profesores"),
-    path("agregar_profesor", AgregarProfesor.as_view(), name="agregar_profesor"),
+    path("agregar_profesor/", AgregarProfesor.as_view(), name="agregar_profesor"),
     path ("eliminar_profesor/<pk>", EliminarProfesor.as_view(), name ="eliminar_profesor"),
     path("profesor_detalle/<pk>", ProfesorDetalle.as_view(), name="profesor_detalle"),
+    path ("agregar_profesor", AgregarProfesor.as_view(), name ="Agregar"),
     #usuario
     path ("logout/",LogoutView.as_view(template_name="institutos/usuario/cerrar_sesion.html"), name ="Logout"),
     path ("editar_usuario/", editar_usuario, name= "editar_usuario"),

@@ -192,7 +192,7 @@ class ProfesorDetalle (DetailView):
 class EliminarProfesor (DeleteView):
     model = Profesor
     success_url= "/appinstituto/profesores/"
-    template_name = "institutos/profesor/eliminar_profesor.html"
+    template_name = "institutos/profesores/eliminar_profesor.html"
         
 def registrar(request):
     
