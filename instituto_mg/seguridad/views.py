@@ -53,7 +53,6 @@ def deslogueo (request):
     return redirect ("inicio")
 
 
-
 def mensajes (request):
     
     mensaje = Mensajes.objects.all()

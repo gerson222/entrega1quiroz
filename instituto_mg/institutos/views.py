@@ -31,36 +31,14 @@ def info_cursos(request):
 @login_required
 def cursos (request):
     
-    curso = Curso.objects.all()
-
-    if request.method == "GET":
-
-        formulario = CursoFormulario()
+    cursos = Curso.objects.all()
     
-        contexto = {
-            "cursos":cursos
+    contexto = {
+        "cursos":cursos
         }
         
-        return render (request, "institutos/cursos/cursosadm.html", contexto)
+    return render (request, "institutos/cursos/cursosadm.html", contexto)
 
-    else:
-        formulario = CursoFormulario(request.POST)
-
-        if formulario.is_valid():
-        
-            infoC = formulario.cleaned_data
-            
-            curso = Curso(Nombre=infoC['curso'], Camada=infoC['camada']) 
-        
-            curso.save()
-
-        formulario = CursoFormulario()
-        contexto = {
-            "cursos":cursos
-        }
-        
-        return render(request, "institutos/cursos/cursosadm.html", contexto)
-    
 @login_required
 def crear_cursos (request):
     formulario = CursoFormulario(request.POST)
@@ -111,23 +89,25 @@ def actualizar_curso (request, id_curso):
             
             try:  
                 curso = Curso.objects.get(id=id_curso)
+                
                 curso.nombre = data.get("nombre")
                 curso.camada = data.get("camada")
                 curso.save()
             except:
                 return HttpResponse ("Error en la actualizacion")
             
-        return redirect("cursoadm")
+        return redirect("cursosadm")
     
     
 @login_required
 def eliminar_curso (request, curso_nombre):
-    curso = Curso.objects.get (nombre= curso_nombre)
+    curso = Curso.objects.get (nombre = curso_nombre)
     curso.delete()
+
+    contexto = {"cursos" : cursos}
     
-    curso = Curso.objects.all ()
-    contexto = {"cursos": cursos}
-    return render (request, "institutos/cursos/cursos.html", contexto)
+    return render (request, "institutos/cursos/cursosadm.html", contexto )
+
 
 
 def campus(request):

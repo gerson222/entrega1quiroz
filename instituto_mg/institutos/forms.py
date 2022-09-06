@@ -20,7 +20,7 @@ class EditarUsuario (Form):
         fields = ["email", "password1", "password2", "nombre", "apellido"]
         help_texts = {k: "" for k in fields}
         
-class ProfesorFormulario (Form):
+class ProfesorFormulario(Form):
     nombre = CharField()
     apellido = CharField()
     email = EmailField()

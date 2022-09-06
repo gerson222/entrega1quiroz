@@ -2,26 +2,28 @@
 
 {% block comentarios %}
 {% endblock %}
+{% block contenido %}
 
-{% block cursos %}
-
-    {% for curso in cursos %}
-
-    <li> {{curso}} </li>
-
-    
-
-        <a href="{%  url 'actualizar' %}"> Editar Curso</a>
-        <a href="{%  url 'eliminar' %}"> Eliminar Curso</a>
-        <a href="{%  url 'Cursodetalle' %}"> Ver </a>
-
-    
-    
-    {%endfor%}
-<br><br>
+<h1> Pagina de cursos </h1>
 
 
-{% endblock %}
+    <form method="post">{% csrf_token %}
+
+        {% for curso in cursos %}
+
+        <p style="color: red">{{curso}}  
+            <a href="{%url 'eliminar'  %}">Borrar</a> 
+            <a href="{%url 'actualizar'  %}">Editar</a> 
+            
+        </p>
+
+    </form>
+    {% endfor %}
+
+
+{% endblock contenido %}
+
+
 
 {% block materia_principal %}
 {% endblock %}
