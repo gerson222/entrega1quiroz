@@ -12,8 +12,8 @@
         {% for curso in cursos %}
 
         <p style="color: red">{{curso}}  
-            <a href="{%url 'eliminar'  %}">Borrar</a> 
-            <a href="{%url 'actualizar'  %}">Editar</a> 
+            <a href="{%url 'eliminar' curso.id %}">Borrar</a> 
+            <a href="{%url 'actualizar_curso' curso.id %}">Editar</a> 
             
         </p>
 

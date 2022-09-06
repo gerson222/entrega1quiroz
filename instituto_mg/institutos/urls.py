@@ -31,6 +31,6 @@ urlpatterns = [
     path("campus/", campus, name='campus'),
     path("cursosadm/", cursos, name='cursosadm'),
     path ("crear_cursos/", crear_cursos, name="crear_cursos"),
-    path("actualizar_curso/", actualizar_curso, name = "actualizar"),
-    path ("eliminar_curso", eliminar_curso, name = "eliminar"),
+    path("actualizar_curso/<curso_nombre>", actualizar_curso, name = "actualizar"),
+    path ("eliminar_curso/<curso_nombre>", eliminar_curso, name = "eliminar"),
 ]

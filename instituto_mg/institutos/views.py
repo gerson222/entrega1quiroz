@@ -41,23 +41,32 @@ def cursos (request):
 
 @login_required
 def crear_cursos (request):
-    formulario = CursoFormulario(request.POST)
-        
-    if formulario.is_valid():
-        
-        informacion = formulario.cleaned_data
-            
-        curso = Curso (nombre= informacion ['nombre'], camada = informacion ['camada']) 
-        
-        curso.save()
     
-        return redirect (request, "institutos/cursos/cursosadm.html")
+    if request.method == 'GET':
     
-    else:   
-        
         formulario = CursoFormulario()
+        return render (request, "institutos/cursos/cursosadm.html", {"formulario":formulario})
+
+    else:
+        formulario = CursoFormulario (request.POST)
         
-        return render (request, "institutos/cursos/crear_cursos.html",  {"formulario":formulario})
+        if formulario.is_valid():
+        
+            data = formulario.cleaned_data
+        
+            nombre = data.get('nombre')
+            camada = data.get('camada')
+            
+            
+            curso = Curso (nombre = nombre, camada = camada) 
+        
+            curso.save()
+    
+            return redirect (request, "institutos/cursos/crear_cursos.html")
+    
+        else:   
+        
+            return request (request, "institutos/cursos/crear_cursos.html",  {"formulario":formulario})
 
     
 def buscar (request):
@@ -72,14 +81,15 @@ def buscar (request):
     return HttpResponse(respuesta)
 
 @login_required        
-def actualizar_curso (request, id_curso):
+def actualizar_curso (request, curso_nombre):
+    
     if request.method == "GET":
         formulario = CursoFormulario()
         contexto = {
             "formulario": formulario 
         }
         
-        return render (request, "institutos/actualizar_curso.html", contexto)
+        return render (request, "institutos/cursos/actualizar_curso.html", contexto)
 
     else:
         formulario = CursoFormulario(request.POST)
@@ -88,7 +98,7 @@ def actualizar_curso (request, id_curso):
             data = formulario.cleaned_data
             
             try:  
-                curso = Curso.objects.get(id=id_curso)
+                curso = Curso.objects.get(nombre= curso_nombre)
                 
                 curso.nombre = data.get("nombre")
                 curso.camada = data.get("camada")
@@ -101,10 +111,15 @@ def actualizar_curso (request, id_curso):
     
 @login_required
 def eliminar_curso (request, curso_nombre):
-    curso = Curso.objects.get (nombre = curso_nombre)
-    curso.delete()
 
-    contexto = {"cursos" : cursos}
+    
+    curso = Curso.objects.get (id= curso_nombre)
+    curso.delete()
+    
+    cursos = Curso.objects.all ()
+
+    contexto = {"cursos" : cursos
+                }
     
     return render (request, "institutos/cursos/cursosadm.html", contexto )
 
@@ -167,30 +182,31 @@ class ProfesorLista(ListView):
     #success_url = "/appinstituto/profesores/"
     #fields = ["nombre", "apellido", "email", "profesion"]
     #template_name = "institutos/profesores/profesor_formulario.html"
- 
- 
+
 def agregar_profesor (request):
 
-    if request.method == "POST":
-
-        formulario_profe = ProfesorFormulario(request.POST)
+    formulario = ProfesorFormulario(request.POST)
         
-        if formulario_profe.is_valid():
+    if formulario.is_valid():
+        
+        informacion = formulario.cleaned_data
+            
+        profesor = Profesor (nombre= informacion ['nombre'], apellido = informacion ['apellido'], email = informacion ['email'], profesion = informacion ['profesion']) 
+        
+        profesor.save()
+    
+        return render (request, "institutos/profesores/lista_profesores.html")
+    
+    else:   
+        
+        formulario = ProfesorFormulario()
+        
+        return render (request, "institutos/profesores/agregar_profesor.html",  {"formulario":formulario})
 
-            informacion = formulario_profe.cleaned_data
+    
 
-            profesor = Profesor(nombre=informacion['nombre'], apellido=informacion['apellido'], email=informacion['email'], profesion=informacion['profesion'])
 
-            profesor.save()
-
-            return render(request, "institutos/profesores/lista_profesores.html")
-
-    else:
-
-        formulario_profe= ProfesorFormulario()
-
-    return render(request, "institutos/profesores/profesor_formulario.html", {'formularioProfe':formulario_profe})
-                
+  
 class ProfesorDetalle (DetailView):
     model = Profesor
     template_name = "institutos/profesores/profesor_detalle.html"
