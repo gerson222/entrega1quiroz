@@ -25,7 +25,7 @@ urlpatterns = [
     path("fisica/", fisica, name= 'fisica'),
     path("quimica/", quimica, name= 'quimica'),
     path("matematica/", matematica, name= 'matematica'),
-    path("cursos/", cursos, name='info_cursos'),
+    path("info_cursos/", info_cursos, name='info_cursos'),
     #campus
     path("campus/", campus, name='campus'),
     path("cursosadm/", cursos, name='cursosadm'),

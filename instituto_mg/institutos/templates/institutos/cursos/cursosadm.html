@@ -3,33 +3,31 @@
 {% block comentarios %}
 {% endblock %}
 
+{% block cursos %}
+
+    {% for curso in cursos %}
+
+    <li> {{curso}} </li>
+
+    
+
+        <a href="{%  url 'actualizar' %}"> Editar Curso</a>
+        <a href="{%  url 'eliminar' %}"> Eliminar Curso</a>
+        <a href="{%  url 'Cursodetalle' %}"> Ver </a>
+
+    
+    
+    {%endfor%}
+<br><br>
+
+
+{% endblock %}
+
 {% block materia_principal %}
 {% endblock %}
 
 {% block materia_secundaria %}
 {% endblock %}
 
-
-{% block titulo %}  Cursos {% endblock titulo %}
-
-{%block cursos%}
-
-    {% for curso  in cursos %}
-
-    <li> {{curso}} </li>
-
-    <button>
-        <a href="{%  url 'actualizar' %}"> Editar Curso</a>
-        <a href="{%  url 'eliminar' %}"> Eliminar Curso</a>
-        <a href="{%  url 'Cursodetalle' %}"> Ver </a>
-
-
-
-    </button>
-    
-    {%endfor%}
-
-
-{%endblock cursos%}
 
     
