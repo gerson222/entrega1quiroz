@@ -26,6 +26,11 @@ def comentarios(request):
 
     return render(request, "institutos/comentarios.html")
 
+def info_cursos(request):
+    
+    return render(request, "institutos/cursosinfo.html")
+
+@login_required
 def cursos (request):
     
     curso = Curso.objects.all()
