@@ -10,12 +10,12 @@
     {%for curso in cursos %}
     <li>{{p}}</li>
     <button>
-        <a href="{% url 'eliminar_curso' p.nombre%} "> Eliminar </a>
+        <a href="{% url 'eliminar' p.nombre%} "> Eliminar </a>
     </button>
 
     {%endfor%}
 
-    <a href='crear_curso'>Agregar otro Curso </a>
+    <a href='crear_cursos'>Agregar otro Curso </a>
 
    
 </body>
