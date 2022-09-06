@@ -189,6 +189,25 @@ class AgregarProfesor(LoginRequiredMixin, CreateView):
     success_url = "/appinstituto/profesores/"
     fields = ["nombre", "apellido", "email", "profesion"]
     template_name = "institutos/profesores/profesor_formulario.html"
+ 
+ 
+def agregar_profesor (request):
+
+    if request.method == "POST":
+        formulario = ProfesorFormulario  (request.POST)
+        
+        print (formulario)
+        if formulario.is_valid:
+            informacion = formulario.cleaned_data
+            profesor = Profesor (nombre = informacion['nombre'], apellido = informacion['apellido'], email = informacion['email'], profesion = informacion ['profesion'])
+            profesor.save()
+            return render(request, "institutos/profesores/lista_profesores.html")
+
+    else:
+
+        formulario = ProfesorFormulario()
+
+    return render(request, "institutos/profesores/profesor_formulario.html", {"formulario":formulario})
                 
 class ProfesorDetalle (DetailView):
     model = Profesor
