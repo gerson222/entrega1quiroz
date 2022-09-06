@@ -41,8 +41,22 @@ def cursos (request):
 
 @login_required
 def crear_cursos (request):
+<<<<<<< HEAD
     
     if request.method == 'GET':
+=======
+    formulario = CursoFormulario(request.POST)
+        
+    if formulario.is_valid():
+        
+        informacion = formulario.cleaned_data
+            
+        curso = Curso(Nombre=informacion['curso'], Camada=informacion['camada']) 
+        
+        curso.save()
+    
+        return render(request, "institutos/cursos/cursosadm.html")
+>>>>>>> 329d247d35afa0ff011a0712e2f79ec18ba485c6
     
         formulario = CursoFormulario()
         return render (request, "institutos/cursos/cursosadm.html", {"formulario":formulario})
@@ -100,8 +114,8 @@ def actualizar_curso (request, curso_nombre):
             try:  
                 curso = Curso.objects.get(nombre= curso_nombre)
                 
-                curso.nombre = data.get("nombre")
-                curso.camada = data.get("camada")
+                curso.nombre = data.get("Nombre")
+                curso.camada = data.get("Camada")
                 curso.save()
             except:
                 return HttpResponse ("Error en la actualizacion")
@@ -110,7 +124,13 @@ def actualizar_curso (request, curso_nombre):
     
     
 @login_required
+<<<<<<< HEAD
 def eliminar_curso (request, curso_nombre):
+=======
+def eliminar_curso (request):
+    curso = Curso.objects.get()
+    curso.delete()
+>>>>>>> 329d247d35afa0ff011a0712e2f79ec18ba485c6
 
     
     curso = Curso.objects.get (id= curso_nombre)
