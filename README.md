@@ -16,3 +16,8 @@ En el Home se visualizan las distintas opciones de navegacion, ofreciendole al u
 ![image](https://user-images.githubusercontent.com/107005454/188723270-e40eb5ac-6c13-4c29-aee0-6be05d0974c7.png)
 
 ![image](https://user-images.githubusercontent.com/107005454/188723403-589927fd-49ec-4084-9bb8-522eb45305fa.png)
+
+
+SE ADJUNTA VIDEO MUESTRA
+
+https://drive.google.com/file/d/1NphgCGhUy0ToeNRQMQit9qVxWuTBE8ua/view?usp=sharing
