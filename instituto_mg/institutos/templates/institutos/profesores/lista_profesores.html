@@ -3,6 +3,8 @@
 
 {% block contenido %}
 
+<h1> Profesores </h1>
+
 <form method="post">{% csrf_token %}
 {% for profesor in object_list %}
     <p>{{profesor}}</p>    

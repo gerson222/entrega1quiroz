@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from institutos.forms import *
 from institutos.models import *
@@ -41,10 +41,6 @@ def cursos (request):
 
 @login_required
 def crear_cursos (request):
-<<<<<<< HEAD
-    
-    if request.method == 'GET':
-=======
     formulario = CursoFormulario(request.POST)
         
     if formulario.is_valid():
@@ -55,8 +51,8 @@ def crear_cursos (request):
         
         curso.save()
     
+    
         return render(request, "institutos/cursos/cursosadm.html")
->>>>>>> 329d247d35afa0ff011a0712e2f79ec18ba485c6
     
         formulario = CursoFormulario()
         return render (request, "institutos/cursos/cursosadm.html", {"formulario":formulario})
@@ -76,11 +72,11 @@ def crear_cursos (request):
         
             curso.save()
     
-            return redirect (request, "institutos/cursos/crear_cursos.html")
+            return redirect (request, "institutos/cursos/cursosadm.html")
     
         else:   
         
-            return request (request, "institutos/cursos/crear_cursos.html",  {"formulario":formulario})
+            return render (request, "institutos/cursos/crear_cursos.html",  {"formulario":formulario})
 
     
 def buscar (request):
@@ -120,17 +116,11 @@ def actualizar_curso (request, curso_nombre):
             except:
                 return HttpResponse ("Error en la actualizacion")
             
-        return redirect("cursosadm")
+        return redirect("institutos/cursos/cursosadm.html")
     
     
 @login_required
-<<<<<<< HEAD
 def eliminar_curso (request, curso_nombre):
-=======
-def eliminar_curso (request):
-    curso = Curso.objects.get()
-    curso.delete()
->>>>>>> 329d247d35afa0ff011a0712e2f79ec18ba485c6
 
     
     curso = Curso.objects.get (id= curso_nombre)
