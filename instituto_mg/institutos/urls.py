@@ -6,6 +6,7 @@ urlpatterns = [
     #generico
     path("", inicio, name='inicio'),
     path("comentarios/", comentarios, name='comentarios'),
+    path("comentario_nuevo/", comentario_nuevo, name='comentario_nuevo'),
     path ("buscar/", buscar, name='buscar'), 
     path ("pagos/", Pagos, name= 'formulariopagos'),
     path ("buscar/", buscar, name='buscar'),

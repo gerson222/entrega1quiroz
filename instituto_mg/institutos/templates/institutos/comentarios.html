@@ -2,30 +2,7 @@
 
 {% block comentarios %}
 
-    <form method="POST"> 
-
-        <p>Nombre: <input type="text"  name="nombre"> </p>
-        <p>Curso: <input type="text"  name="curso"> </p>
-        <form name="form1" id="form1" action="/action_page.php">
-            Subjects: <select name="subject" id="subject">
-              <option value="" selected="selected">Select subject</option>
-            </select>
-            <br><br>
-            Topics: <select name="topic" id="topic">
-              <option value="" selected="selected">Please select subject first</option>
-            </select>
-            <br><br>
-            Chapters: <select name="chapter" id="chapter">
-              <option value="" selected="selected">Please select topic first</option>
-            </select>
-            <br><br>
-          </form>
-        <p>Valoracion: <input type="text" name="valoracion"> </p>
-        <P>Comentario: <input type="text" name="comentario"> </P>
-
-        <input type="submit" value="Enviar">
-    </form>
-
+<a href="{% url 'comentario_nuevo' %}">Deje su comentario</a> <br>
     
 
 {% endblock %}

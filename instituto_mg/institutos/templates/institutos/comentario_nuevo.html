@@ -1,0 +1,19 @@
+{% extends 'institutos/base.html' %}
+
+{% block comentarios %}
+
+    <form method="POST">{% csrf_token %}
+        
+        <table>
+
+            {{formularioCom.as_p}}
+    
+        </table>
+      
+        <input type="submit" value="Enviar">
+        
+    </form>
+
+    
+
+{% endblock %}
