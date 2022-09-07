@@ -45,7 +45,9 @@ class InformePagoFormulario (Form):
     Curso_abonado= CharField()
     Telefono_WhastApp= IntegerField()
 
-class Comentarios (Form):
+class Comentario_nuevo (Form):
     Tu_nombre= CharField()
     Tu_comentario= CharField()
-    
+    Valoracion= CharField()
+    Seleccionar_curso= CharField()
+    Email= CharField()

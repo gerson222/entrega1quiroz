@@ -19,11 +19,6 @@ def inicio(request):
 
     return render(request, "institutos/index.html")
 
-
-def comentarios(request):
-
-    return render(request, "institutos/comentarios.html")
-
 def info_cursos(request):
     
     return render(request, "institutos/cursosinfo.html")
@@ -41,42 +36,25 @@ def cursos (request):
 
 @login_required
 def crear_cursos (request):
-    formulario = CursoFormulario(request.POST)
-        
-    if formulario.is_valid():
-        
-        informacion = formulario.cleaned_data
-            
-        curso = Curso(Nombre=informacion['curso'], Camada=informacion['camada']) 
-        
-        curso.save()
-    
-    
-        return render(request, "institutos/cursos/cursosadm.html")
-    
-        formulario = CursoFormulario()
-        return render (request, "institutos/cursos/cursosadm.html", {"formulario":formulario})
 
-    else:
-        formulario = CursoFormulario (request.POST)
-        
+    if request.method == "POST":
+
+        formulario = CursoFormulario(request.POST)
+            
         if formulario.is_valid():
-        
-            data = formulario.cleaned_data
-        
-            nombre = data.get('nombre')
-            camada = data.get('camada')
             
+            informacion = formulario.cleaned_data
+                
+            curso = Curso(Nombre=informacion['curso'], Camada=informacion['camada']) 
             
-            curso = Curso (nombre = nombre, camada = camada) 
-        
             curso.save()
-    
-            return redirect (request, "institutos/cursos/cursosadm.html")
-    
-        else:   
         
-            return render (request, "institutos/cursos/crear_cursos.html",  {"formulario":formulario})
+        
+            return render(request, "institutos/cursos/cursosadm.html")
+    
+    else:      
+        formulario = CursoFormulario()
+        return render (request, "institutos/cursos/crear_cursos.html", {"formulario":formulario})
 
     
 def buscar (request):
@@ -262,3 +240,29 @@ def Pagos(request):
         formulario_pagos = InformePagoFormulario()
 
         return render(request, "institutos/pagos.html", {'formularioP':formulario_pagos})
+
+
+def comentario_nuevo(request):
+
+    if request.method == "POST":
+
+        formulario_comentarios = Comentario_nuevo(request.POST)
+
+        if formulario_comentarios.is_valid():
+
+            com = formulario_comentarios.cleaned_data
+
+            coment = Comentarios(Tu_comentario=com['Tu_comentario'], Valoracion=com['Valoracion'], Email=com['Email'], Seleccionar_curso=com['Seleccionar_curso'], Tu_nombre=com['Tu_nombre'])
+
+            coment.save()
+
+            return render(request, "institutos/index.html")
+
+    else:
+        formulario_comentarios = Comentario_nuevo()
+
+        return render(request, "institutos/comentario_nuevo.html", {'formularioCom':formulario_comentarios})
+
+def comentarios(request):
+
+    return render(request, "institutos/comentarios.html")
