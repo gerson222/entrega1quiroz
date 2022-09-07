@@ -127,8 +127,3 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL= 'seguridad/login'
-
-# media config
-
-MEDIA_URL = 'MEDIA'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
