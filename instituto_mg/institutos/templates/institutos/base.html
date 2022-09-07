@@ -34,14 +34,18 @@
                         {% if request.user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'profesores' %}">Profesores</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'cursosadm' %}">Cursos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Mensajes' %}">Mensajes</a></li>
+                        
                         <a class="btn btn-primary" href="{% url 'cerrar_sesion' %}">Logout</a>
                         {% else %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'info_cursos' %}">Cursos</a></li>
                         <li class="nav-item"><a class="nav-link" href="#info">Conocenos</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                         <li class="nav-item"><a class="nav-link"  href="{% url 'registrar' %}">Registrate</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a></li>
                         <li class="nav-item"><a class="btn btn-primary" href="{% url 'Inicio_sesion' %}">Iniciar sesion</a></li>
+                        
                         {% endif %}
                     </ul>
                 </div>
@@ -62,6 +66,10 @@
         </header>
         {% endblock %}
         {% block comentarios %}
+
+        {% block nosotros %}
+        {% endblock %}
+
 
         {% block cursos %}
         {% endblock %}

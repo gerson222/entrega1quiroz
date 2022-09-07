@@ -9,6 +9,7 @@ urlpatterns = [
     path ("buscar/", buscar, name='buscar'), 
     path ("pagos/", Pagos, name= 'formulariopagos'),
     path ("buscar/", buscar, name='buscar'),
+    path ("nosotros/", nosotros, name ="nosotros"),
     #profesores
     path ("profesores/", ProfesorLista.as_view(), name="profesores"),
     #path("crear_profesor/", AgregarProfesor.as_view(), name="crear_profesor"),

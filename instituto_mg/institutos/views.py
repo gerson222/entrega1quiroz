@@ -24,6 +24,10 @@ def comentarios(request):
 
     return render(request, "institutos/comentarios.html")
 
+def nosotros(request):
+
+    return render(request, "institutos/profesores/nosotros.html")
+
 def info_cursos(request):
     
     return render(request, "institutos/cursosinfo.html")
@@ -92,7 +96,6 @@ def buscar (request):
 
 @login_required        
 def actualizar_curso (request, curso_nombre):
-    
     if request.method == "GET":
         formulario = CursoFormulario()
         contexto = {
@@ -117,6 +120,7 @@ def actualizar_curso (request, curso_nombre):
                 return HttpResponse ("Error en la actualizacion")
             
         return redirect("institutos/cursos/cursosadm.html")
+    
     
     
 @login_required
