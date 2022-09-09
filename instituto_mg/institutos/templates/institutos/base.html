@@ -79,7 +79,7 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8">
-                        <h2 class="text-white mb-4">chamuyo sobre trayectoria</h2>
+                        <h2 class="text-white mb-4">Trayectoria</h2>
                         <p class="text-white-50">
                             sobre nosotros blablabla
                             <a href="{% url 'comentarios' %}">comentarios de nuestros alumnos.</a> <br>
@@ -92,13 +92,13 @@
             </div>
         </section>
         {% endblock %}
+
         {% block contenido %}
         {% endblock %}
 
-        
-
         {% block chat %}
         {% endblock %}
+
         <!-- materias-->
         {% block materia_principal %}
         <section class="projects-section bg-light" id="materias">
@@ -187,8 +187,16 @@
                             </div>
                         </div>
                     </div>
+                </div><br><br>
+                <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+                    <div class="d-flex justify-content-center">
+                        <div class="text-center">
+                            <a class="btn btn-primary" href="{% url 'formulariopagos' %}">informa tu pago</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="social d-flex justify-content-center">
+                    <h2 class="text-white mb-4">Nuestras redes sociales</h2><br>
                     <a class="mx-2" href="https://www.instagram.com/instituto.mg/"><i class="fab fa-instagram"></i></a>
                     <a class="mx-2" href="https://wa.me/+5491124908733"><i class="fab fa-whatsapp"></i></a>
                     <a class="mx-2" href="https://www.youtube.com/channel/UCc_vV8RT2qdhBKAl1zSYGSg"><i class="fab fa-youtube"></i></a>

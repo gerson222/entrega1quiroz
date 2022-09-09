@@ -7,15 +7,15 @@
 
 <form method="post">{% csrf_token %}
 {% for profesor in object_list %}
-    <p>{{profesor}}</p>    
-    
-    
-        <a href="{% url 'profesor_detalle' profesor.id %}"> Ver Más </a>
+
+    <p>{{profesor}} <a href="{% url 'profesor_detalle' profesor.id %}"> Ver Más </a>
         <a href="{% url 'eliminar_profesor' profesor.id %}"> Eliminar </a>
+    </p>    
 
 {% endfor %}
+
 <br><br>
-<a href="{% url 'Agregar' %}">agregar profesor</a>
+<a class="btn btn-primary" href="{% url 'Agregar' %}">agregar profesor</a>
     
 {% endblock contenido %}
     

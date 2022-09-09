@@ -47,7 +47,7 @@ class Comentarios(models.Model):
     Seleccionar_curso= models.CharField(max_length=50)
     Email= models.EmailField()
     Valoracion= models.CharField(max_length=30)
-    Tu_comentario= models.CharField(max_length=50, default='some_value')
+    Tu_comentario= models.CharField(max_length=500, null=False, blank=False)
     
     def __str__(self):
         return f"{self.Tu_nombre} {self.Seleccionar_curso} {self.Email}"

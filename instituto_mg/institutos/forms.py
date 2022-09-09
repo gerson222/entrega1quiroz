@@ -1,4 +1,4 @@
-from django.forms import Form, IntegerField, CharField, EmailField, DateField, BooleanField, PasswordInput, ImageField
+from django.forms import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -37,17 +37,41 @@ class FormularioRegistroUsuario(UserCreationForm):
         fields = ["username", "email", "password1", "password2"]
         help_texts = { "username": "", "email": "", "password1": "", "password2": "" }
 
+OPCIONES_curso=(
+    ("1", "Selecciona"),
+    ("2", "Quimica XXI a distancia"),
+    ("3", "Quimica CBC a distancia"),
+    ("4", "Quimica Completo"),
+    ("5", "Matematica XXI a distancia"),
+    ("6", "Matematica CBC a distancia"),
+    ("7", "Matematica Completo"),
+    ("8", "Biofisica XXI a distancia"),
+    ("9", "Biofisica CBC a distancia"),
+    ("10", "Biofisica XXI Completo"),
+    ("11", "Biofisica CBC Completo"),
+    )
+
+
 class InformePagoFormulario (Form):
     Nombre_del_estudiante= CharField()
     Apellido_del_estudiante= CharField()
     Email_del_estudiante= EmailField()
-    Numero_de_documento_de_Identidad= IntegerField()
-    Curso_abonado= CharField()
+    Numero_de_documento_de_Identidad=()
+    Curso_abonado= ChoiceField(choices=OPCIONES_curso)
     Telefono_WhastApp= IntegerField()
+    Comprobante = FileField()
+
+OPCIONES_Valoracion=(
+    ("1", "Excelente"),
+    ("2", "Muy bueno"),
+    ("3", "Bueno"),
+    ("4", "Normal"),
+    ("5", "Malo")
+    )
 
 class Comentario_nuevo (Form):
     Tu_nombre= CharField()
-    Tu_comentario= CharField()
-    Valoracion= CharField()
-    Seleccionar_curso= CharField()
     Email= CharField()
+    Seleccionar_el_curso= ChoiceField(choices=OPCIONES_curso)
+    Valoracion= ChoiceField(choices=OPCIONES_Valoracion)
+    Tu_comentario= CharField()
