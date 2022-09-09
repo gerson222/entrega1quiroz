@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block cursos %}
-    <form  action="{% url 'Agregar' %}" method="POST">
+    <form  action="{% url 'profesores' %}" method="POST">
 
         {% csrf_token %}
 
@@ -24,8 +24,3 @@
 
 {% block materia_secundaria %}
 {% endblock %}
-
-<!--<p> Nombre: <input type= "text" name="Nombre"></p>
-            <p> Apellido: <input type= "text" name="Apellido"></p>
-            <p> Mail: <input type= "text" name="Mail"></p>
-            <p> Profesion: <input type= "text" name="Profesion"></p>

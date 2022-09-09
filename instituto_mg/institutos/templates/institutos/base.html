@@ -54,6 +54,13 @@
         {% endblock %}
         {% block saludo %}
         <!-- Masthead-->
+        {% if request.user.is_authenticated %}
+        <br><br><br>
+        <div class="text-center">
+            <h1 class="mx-auto my-0 text-uppercase">Biendenid@ al campus</h1>
+            <h2 class="text-white-50 mx-auto mt-2 mb-5">No damos clases convencionales <br> (en serio)</h2>
+        </div>
+        {% else %}
         <header class="masthead">
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
@@ -64,6 +71,8 @@
                 </div>
             </div>
         </header>
+        {% endif %}
+
         {% endblock %}
         {% block comentarios %}
 
@@ -74,6 +83,9 @@
         {% block cursos %}
         {% endblock %}
         
+        {% if request.user.is_authenticated %}
+
+        {% else %}
         <!-- cometarios-->
         <section class="about-section text-center" id="info">
             <div class="container px-4 px-lg-5">
@@ -91,6 +103,8 @@
                 <img class="img-fluid" src=vacio alt="..." />
             </div>
         </section>
+        {% endif %}
+
         {% endblock %}
 
         {% block contenido %}
@@ -100,6 +114,10 @@
         {% endblock %}
 
         <!-- materias-->
+        {% if request.user.is_authenticated %}
+
+        {% else %}
+
         {% block materia_principal %}
         <section class="projects-section bg-light" id="materias">
             <div class="container px-4 px-lg-5">
@@ -148,6 +166,7 @@
                 {% endblock %}
             </div>
         </section>
+
         {% block pie_de_pagina %}
         <!-- Signup-->
         <section class="signup-section" >
@@ -211,5 +230,7 @@
         <!-- Core theme JS-->
         <script src="{% static 'intitutos/js/scripts.js' %}"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        
+        {% endif %}
     </body>
 </html>

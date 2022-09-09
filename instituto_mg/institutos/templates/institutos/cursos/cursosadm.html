@@ -1,7 +1,5 @@
 {% extends 'institutos/base.html' %}
 
-{% block comentarios %}
-{% endblock %}
 {% block contenido %}
 
 <h1> Pagina de cursos </h1>
@@ -19,19 +17,9 @@
 
     </form>
     {% endfor %}
-    <br><br>
-    <a href="{%url 'crear_cursos'  %}">agregar curso</a>
+    <a class="btn btn-primary" href="{%url 'crear_cursos'  %}">agregar curso</a>
 
 
 {% endblock contenido %}
-
-
-
-{% block materia_principal %}
-{% endblock %}
-
-{% block materia_secundaria %}
-{% endblock %}
-
 
     
