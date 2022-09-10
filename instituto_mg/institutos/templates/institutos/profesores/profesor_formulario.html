@@ -1,8 +1,5 @@
 {% extends 'institutos/base.html' %}
 
-{% block comentarios %}
-{% endblock %}
-
 {% block cursos %}
     <form  action="{% url 'profesores' %}" method="POST">
 
@@ -17,10 +14,4 @@
         <input type="submit", value="Enviar">
               
     </form>
-{% endblock %}
-
-{% block materia_principal %}
-{% endblock %}
-
-{% block materia_secundaria %}
 {% endblock %}
