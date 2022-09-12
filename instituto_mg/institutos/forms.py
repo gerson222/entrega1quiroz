@@ -1,3 +1,4 @@
+from typing import Text
 from django.forms import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -5,15 +6,15 @@ from django.contrib.auth.models import User
 from institutos.models import Estudiante
 
 class CursoFormulario (Form):
-    curso = CharField()
+    curso = CharField(widget=TextInput(attrs={'size': '40'}))
     camada = IntegerField()
 
 class EditarUsuario (Form):
     email = EmailField(label="Modificar E-Mail")
     password1 = CharField (label= "Contraseña", widget= PasswordInput)
     password2 = CharField (label= "Repetí la contraseña", widget= PasswordInput)
-    nombre = CharField()
-    apellido = CharField ()
+    nombre = CharField(widget=TextInput(attrs={'size': '40'}))
+    apellido = CharField (widget=TextInput(attrs={'size': '40'}))
     
     class Meta:
         model = Estudiante
@@ -21,10 +22,10 @@ class EditarUsuario (Form):
         help_texts = {k: "" for k in fields}
         
 class ProfesorFormulario(Form):
-    nombre = CharField()
-    apellido = CharField()
-    email = EmailField()
-    profesion = CharField()
+    nombre = CharField(widget=TextInput(attrs={'size': '40'}))
+    apellido = CharField(widget=TextInput(attrs={'size': '40'}))
+    email = EmailField(widget=TextInput(attrs={'size': '40'}))
+    profesion = CharField(widget=TextInput(attrs={'size': '40'}))
     
 class FormularioRegistroUsuario(UserCreationForm):
 
@@ -38,24 +39,23 @@ class FormularioRegistroUsuario(UserCreationForm):
         help_texts = { "username": "", "email": "", "password1": "", "password2": "" }
 
 OPCIONES_curso=(
-    ("1", "Selecciona"),
-    ("2", "Quimica XXI a distancia"),
-    ("3", "Quimica CBC a distancia"),
-    ("4", "Quimica Completo"),
-    ("5", "Matematica XXI a distancia"),
-    ("6", "Matematica CBC a distancia"),
-    ("7", "Matematica Completo"),
-    ("8", "Biofisica XXI a distancia"),
-    ("9", "Biofisica CBC a distancia"),
-    ("10", "Biofisica XXI Completo"),
-    ("11", "Biofisica CBC Completo"),
+    ("1", "Quimica XXI a distancia"),
+    ("2", "Quimica CBC a distancia"),
+    ("3", "Quimica Completo"),
+    ("4", "Matematica XXI a distancia"),
+    ("5", "Matematica CBC a distancia"),
+    ("6", "Matematica Completo"),
+    ("7", "Biofisica XXI a distancia"),
+    ("8", "Biofisica CBC a distancia"),
+    ("9", "Biofisica XXI Completo"),
+    ("10", "Biofisica CBC Completo"),
     )
 
 
 class InformePagoFormulario (Form):
-    Nombre_del_estudiante= CharField()
-    Apellido_del_estudiante= CharField()
-    Email_del_estudiante= EmailField()
+    Nombre_del_estudiante= CharField(widget=TextInput(attrs={'size': '40'}))
+    Apellido_del_estudiante= CharField(widget=TextInput(attrs={'size': '40'}))
+    Email_del_estudiante= EmailField(widget=TextInput(attrs={'size': '40'}))
     Numero_de_documento_de_Identidad=()
     Curso_abonado= ChoiceField(choices=OPCIONES_curso)
     Telefono_WhastApp= IntegerField()
@@ -70,8 +70,8 @@ OPCIONES_Valoracion=(
     )
 
 class Comentario_nuevo (Form):
-    Tu_nombre= CharField()
-    Email= CharField()
+    Tu_nombre= CharField(widget=TextInput(attrs={'size': '40'}))
+    Email= CharField(widget=TextInput(attrs={'size': '40'}))
     Seleccionar_el_curso= ChoiceField(choices=OPCIONES_curso)
     Valoracion= ChoiceField(choices=OPCIONES_Valoracion)
-    Tu_comentario= CharField()
+    Tu_comentario= CharField(widget=Textarea)

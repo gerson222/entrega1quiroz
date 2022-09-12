@@ -34,7 +34,6 @@
                         {% if request.user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'profesores' %}">Profesores</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'cursosadm' %}">Cursos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Mensajes' %}">Mensajes</a></li>
                         
                         <a class="btn btn-primary" href="{% url 'cerrar_sesion' %}">Logout</a>
@@ -44,7 +43,7 @@
                         <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                         <li class="nav-item"><a class="nav-link"  href="{% url 'registrar' %}">Registrate</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a></li>
-                        <li class="nav-item"><a class="btn btn-primary" href="{% url 'Inicio_sesion' %}">Iniciar sesion</a></li>
+                        <li class="nav-item"><a class="btn btn-primary" href="{% url 'Inicio_sesion' %}" target="_blank">Iniciar sesion</a></li>
                         
                         {% endif %}
                     </ul>
@@ -74,14 +73,8 @@
         {% endif %}
 
         {% endblock %}
+
         {% block comentarios %}
-
-        {% block nosotros %}
-        {% endblock %}
-
-
-        {% block cursos %}
-        {% endblock %}
         
         {% if request.user.is_authenticated %}
 
@@ -107,6 +100,12 @@
 
         {% endblock %}
 
+        {% block nosotros %}
+        {% endblock %}
+
+        {% block cursos %}
+        {% endblock %}
+
         {% block contenido %}
         {% endblock %}
 
@@ -123,7 +122,7 @@
             <div class="container px-4 px-lg-5">
                 <!-- materia principal-->
                 <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="{% static 'institutos/assets/img/quimica.jpg' %}" alt="..." /></div>
+                    <div class="col-xl-8 col-lg-7"><a href="{% url 'quimica' %}"><img class="img-fluid mb-3 mb-lg-0" src="{% static 'institutos/assets/img/quimica.jpg' %}" alt="..." /></a></div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
                             <h4><a href="{% url 'quimica' %}">Quimica</a></h4>
@@ -135,7 +134,7 @@
                 {% block materia_secundaria %}
                 <!-- materia 2-->
                 <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="{% static 'institutos/assets/img/matematica.jpg' %}" alt="..." /></div>
+                    <div class="col-lg-6"><a href="{% url 'matematica' %}"><img class="img-fluid" src="{% static 'institutos/assets/img/matematica.jpg' %}" alt="..." /></a></div>
                     <div class="col-lg-6">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
@@ -150,7 +149,7 @@
                 </div>
                 <!-- materia 3-->
                 <div class="row gx-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="{% static 'institutos/assets/img/fisica.jpg' %}" alt="..." /></div>
+                    <div class="col-lg-6"><a href="{% url 'fisica' %}"><img class="img-fluid" src="{% static 'institutos/assets/img/fisica.jpg' %}" alt="..." /></a></div>
                     <div class="col-lg-6 order-lg-first">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
@@ -211,14 +210,15 @@
                     <div class="d-flex justify-content-center">
                         <div class="text-center">
                             <a class="btn btn-primary" href="{% url 'formulariopagos' %}">informa tu pago</a>
+                            <a class="btn btn-primary" href="#!">Paga tu curso</a>
                         </div>
                     </div>
                 </div>
                 <div class="social d-flex justify-content-center">
                     <h2 class="text-white mb-4">Nuestras redes sociales</h2><br>
-                    <a class="mx-2" href="https://www.instagram.com/instituto.mg/"><i class="fab fa-instagram"></i></a>
-                    <a class="mx-2" href="https://wa.me/+5491124908733"><i class="fab fa-whatsapp"></i></a>
-                    <a class="mx-2" href="https://www.youtube.com/channel/UCc_vV8RT2qdhBKAl1zSYGSg"><i class="fab fa-youtube"></i></a>
+                    <a class="mx-2" href="https://www.instagram.com/instituto.mg/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a class="mx-2" href="https://wa.me/+5491124908733" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a class="mx-2" href="https://www.youtube.com/channel/UCc_vV8RT2qdhBKAl1zSYGSg" target="_blank"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </section>

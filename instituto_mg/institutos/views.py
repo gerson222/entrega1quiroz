@@ -169,12 +169,6 @@ class ProfesorLista(ListView):
     model = Profesor
     template_name = "institutos/profesores/lista_profesores.html"
 
-#class AgregarProfesor(LoginRequiredMixin, CreateView):
-    #model = Profesor
-    #success_url = "/appinstituto/profesores/"
-    #fields = ["nombre", "apellido", "email", "profesion"]
-    #template_name = "institutos/profesores/profesor_formulario.html"
-
 def agregar_profesor (request):
 
     formulario = ProfesorFormulario(request.POST)
